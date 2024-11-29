@@ -1,79 +1,22 @@
-"use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-const formSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters long" })
-    .max(30, { message: "Username cannot exceed 30 characters" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters long" })
-    .max(128, { message: "Password cannot exceed 128 characters" }),
-});
-
-export const SignUp = () => {
-  // ...
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
-  });
-
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
-
+import { Link } from "react-router-dom";
+import { SignUpForm } from "@/components/SignUpForm";
+import Login from "./Login";
+const SignUp = () => {
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="Username" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input placeholder="Password" type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <main className="w-screen h-screen flex flex-row">
+      <div className="w-1/2 h-full bg-black text-white p-24 flex justify-between flex-col">
+        <h1 className="text-6xl font-bold">UnHinged</h1>
+        <footer className="italic font-medium">
+          "Break free from the ordinary. Discover bold, authentic connections.
+          Because love shouldn't come with limits."
+        </footer>
+      </div>
+      <div className="w-1/2 h-full flex justify-center p-24 items-center bg-slate-200">
+        <Link to={"/login"} className="absolute top-10 right-24">Login</Link>
+        <SignUpForm />
+      </div>
+    </main>
   );
 };
+
+export default SignUp;
