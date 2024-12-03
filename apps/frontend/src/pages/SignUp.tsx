@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { SignUpForm } from "@/components/SignUpForm";
-import Login from "./Login";
 const SignUp = () => {
   return (
     <main className="w-screen h-screen flex flex-row">
@@ -12,7 +11,7 @@ const SignUp = () => {
         </footer>
       </div>
       <div className="w-1/2 h-full flex justify-center p-24 items-center bg-slate-200">
-        <Link to={"/login"} className="absolute top-10 right-24">Login</Link>
+        <Link to={"/login"} className="absolute top-10 right-24 font-medium">Login</Link>
         <SignUpForm />
       </div>
     </main>

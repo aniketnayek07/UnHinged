@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,7 +26,7 @@ const formSchema = z.object({
     .max(128, { message: "Password cannot exceed 128 characters" }),
 });
 
-export const SignUpForm = () => {
+export const LoginForm = ({ classname }: { classname?: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,18 +42,20 @@ export const SignUpForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex flex-col gap-4"
+        className={cn("w-full flex flex-col gap-4", classname)}
       >
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white font-medium">Username</FormLabel>
+              <FormLabel className="text-white font-medium text-lg">
+                Username
+              </FormLabel>
               <FormControl>
                 <Input
                   placeholder="Username"
-                  className="border border-black"
+                  className="border border-white"
                   {...field}
                 />
               </FormControl>
@@ -66,12 +68,14 @@ export const SignUpForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white font-medium">Password</FormLabel>
+              <FormLabel className="text-white font-medium text-lg">
+                Password
+              </FormLabel>
               <FormControl>
                 <Input
                   placeholder="Password"
                   type="password"
-                  className="border border-black"
+                  className="border border-white"
                   {...field}
                 />
               </FormControl>
@@ -79,7 +83,10 @@ export const SignUpForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button
+          type="submit"
+          className="w-full bg-white text-black text-xl font-medium hover:bg-slate-400"
+        >
           Submit
         </Button>
       </form>
